@@ -11,24 +11,49 @@ import SceneKit
 
 class GameViewController: UIViewController {
     
+    /// Duration of a plane animation
+    var duration: TimeInterval = 5 
+    
+    /// Label with the score
+    let scoreLabel = UILabel()
+    
+    /// Number of planes shot down
+    var score = 0 {
+    didSet{
+        scoreLabel.text = "Score: \(score)"
+    }
+    }
+    /// The ship which is present on the scene
+    var ship: SCNNode?
     
     /// Add ship to the scene
     func addShip() {
 //         Get the scene with a ship
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
-//        Find ship in the scene
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
+//        Find the ship in the scene
+        ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
         
 //        Ship coordinates
-        ship.position.z = -105
+        let x = Int.random(in: -25 ... 25)
+        let y = Int.random(in: -25 ... 25)
+        let z = -105
+        ship?.position = SCNVector3(x, y, z)
         
+        ship?.look(at: SCNVector3(2 * x, 2 * y, 2 * z))
+        
+        //MARK: GAME OVER
         // Make the ship fly from far to the origin
-        ship.runAction(SCNAction.move(to: SCNVector3(), duration: 5)) {
-            print(#line, #function, "GAME OVER")
-            ship.removeFromParentNode()
+        ship?.runAction(SCNAction.move(to: SCNVector3(), duration: duration)) {
+            DispatchQueue.main.async {
+                self.scoreLabel.text = "GAME OVER\nFinal Score: \(self.score)"
+            }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.ship?.removeFromParentNode()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                self.duration = 5
+                self.score = 0
                 self.addShip()
             }
         }
@@ -37,9 +62,23 @@ class GameViewController: UIViewController {
         let scnView = self.view as! SCNView
         
 //        Add ship to the scene
-        scnView.scene?.rootNode.addChildNode(ship)
+        if let ship = ship {
+            scnView.scene?.rootNode.addChildNode(ship)
+        }
     }
 
+    func setupUI() {
+        score = 0
+        
+        scoreLabel.font = UIFont.systemFont(ofSize: 30)
+        scoreLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        scoreLabel.numberOfLines = 2
+        scoreLabel.textAlignment = .center
+        scoreLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        view.addSubview(scoreLabel)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +118,7 @@ class GameViewController: UIViewController {
         scnView.scene = scene
         
         // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
+        scnView.allowsCameraControl = false
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
@@ -93,6 +132,9 @@ class GameViewController: UIViewController {
         
 //        Add the ship to the scene
         addShip()
+        
+//        SetupUI
+        setupUI()
     }
     
     @objc
@@ -113,16 +155,14 @@ class GameViewController: UIViewController {
             
             // highlight it
             SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
+            SCNTransaction.animationDuration = 0.2
             
-            // on completion - unhighlight
+            // MARK: KILL THE PLANE
             SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = UIColor.black
-                
-                SCNTransaction.commit()
+                self.duration *= 0.9
+                self.score += 1
+                self.ship?.removeFromParentNode()
+                self.addShip()
             }
             
             material.emission.contents = UIColor.red
