@@ -12,6 +12,8 @@
 		5E44061225EC0D7F00FF7A8E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E44061125EC0D7F00FF7A8E /* GameViewController.swift */; };
 		5E44061525EC0D7F00FF7A8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E44061325EC0D7F00FF7A8E /* Main.storyboard */; };
 		5E44061725EC0D8100FF7A8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E44061625EC0D8100FF7A8E /* Assets.xcassets */; };
+		5E44062225EED79700FF7A8E /* Screenshot01.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E44062025EED79700FF7A8E /* Screenshot01.png */; };
+		5E44062325EED79700FF7A8E /* Screenshot02.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E44062125EED79700FF7A8E /* Screenshot02.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		5E44061425EC0D7F00FF7A8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5E44061625EC0D8100FF7A8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E44061825EC0D8100FF7A8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E44062025EED79700FF7A8E /* Screenshot01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot01.png; sourceTree = "<group>"; };
+		5E44062125EED79700FF7A8E /* Screenshot02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot02.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 		5E44060C25EC0D7F00FF7A8E /* Game Flight */ = {
 			isa = PBXGroup;
 			children = (
+				5E44061F25EED74700FF7A8E /* Screenshots */,
 				5E44060D25EC0D7F00FF7A8E /* AppDelegate.swift */,
 				5E44060F25EC0D7F00FF7A8E /* art.scnassets */,
 				5E44061125EC0D7F00FF7A8E /* GameViewController.swift */,
@@ -62,6 +67,15 @@
 				5E44061825EC0D8100FF7A8E /* Info.plist */,
 			);
 			path = "Game Flight";
+			sourceTree = "<group>";
+		};
+		5E44061F25EED74700FF7A8E /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				5E44062025EED79700FF7A8E /* Screenshot01.png */,
+				5E44062125EED79700FF7A8E /* Screenshot02.png */,
+			);
+			path = Screenshots;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +137,8 @@
 			files = (
 				5E44061025EC0D7F00FF7A8E /* art.scnassets in Resources */,
 				5E44061725EC0D8100FF7A8E /* Assets.xcassets in Resources */,
+				5E44062225EED79700FF7A8E /* Screenshot01.png in Resources */,
+				5E44062325EED79700FF7A8E /* Screenshot02.png in Resources */,
 				5E44061525EC0D7F00FF7A8E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
